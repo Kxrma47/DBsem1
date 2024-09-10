@@ -25,5 +25,22 @@ def get_orders(user_id):
     orders = Order.query.filter_by(user_id=user_id).all()
     return jsonify([order.to_dict() for order in orders])
 
+@app.route('/update_order/<int:order_id>', methods=['PUT'])
+def update_order(order_id):
+    data = request.json
+    order = Order.query.get(order_id)
+    if not order:
+        return jsonify({"error": "Order not found"}), 404
+
+    # Update the order status
+    if 'status' in data:
+        order.status = data['status']
+
+    db_session = get_db_session()
+    db_session.commit()
+
+    return jsonify({"message": "Order updated successfully"})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
