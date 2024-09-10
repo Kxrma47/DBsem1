@@ -1,0 +1,6 @@
+/food_delivery_service/
+    ├── app.py
+    ├── database.py
+    ├── models.py
+    ├── schema.sql
+    ├── requirements.txt
